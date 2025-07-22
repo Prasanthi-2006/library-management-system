@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from datetime import datetime, timedelta
+import os  # 🔁 Import os to read the PORT variable from the environment
 
 app = Flask(__name__)
 
@@ -31,5 +32,7 @@ def add_book():
     books[title] = {"author": author, "total": total, "available": total}
     return redirect('/')
 
+# 🔁 FIX THIS PART
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # default to 5000 if PORT is not set
+    app.run(host='0.0.0.0', port=port, debug=True)
